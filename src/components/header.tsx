@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import {
-  FaHome,
   FaSearch,
   FaShoppingBag,
   FaSignInAlt,
@@ -9,19 +8,23 @@ import {
 } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 
-const user = { _id: 'hello', role: 'admin' };
+const user = { _id: '', role: 'admin' };
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
+
+  const logoutHandler = () => {
+    setIsOpen(false);
+  };
   return (
-    <nav>
-      <Link to={'/'}>
-        <FaHome />
+    <nav className="header">
+      <Link onClick={() => setIsOpen(false)} to={'/'}>
+        HOME
       </Link>
-      <Link to={'/search'}>
+      <Link onClick={() => setIsOpen(false)} to={'/search'}>
         <FaSearch />
       </Link>
-      <Link to={'/cart'}>
+      <Link onClick={() => setIsOpen(false)} to={'/cart'}>
         <FaShoppingBag />
       </Link>
 
@@ -33,11 +36,15 @@ const Header = () => {
           <dialog open={isOpen}>
             <div>
               {user.role === 'admin' && (
-                <Link to="/admin/dashboard">Admin</Link>
+                <Link onClick={() => setIsOpen(false)} to="/admin/dashboard">
+                  Admin
+                </Link>
               )}
 
-              <Link to="/orders">Orders</Link>
-              <button>
+              <Link onClick={() => setIsOpen(false)} to="/orders">
+                Orders
+              </Link>
+              <button onClick={logoutHandler}>
                 <FaSignOutAlt />
               </button>
             </div>
